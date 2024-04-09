@@ -1,5 +1,6 @@
 from app.chat_transport.chat_transport import ChatTransport
 from app.chat_transport.utils.data_classes import MessageData
+from app.configs.logs_config import loguru_logger
 from app.configs.text_templates import TextTemplates
 
 
@@ -15,6 +16,7 @@ class SimpleBusinessLogicBot:
         for handler in handlers:
             self._transport.add_handler(handler)
 
+    @loguru_logger.catch
     async def run_bot(self) -> None:
         await self._transport.run()
 

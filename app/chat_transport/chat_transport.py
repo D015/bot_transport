@@ -37,6 +37,3 @@ class ChatTransport(ABC):
                 await self._handle_message(msg)
             else:
                 loguru_logger.error(f"Received message is not a MessageData")
-
-
-

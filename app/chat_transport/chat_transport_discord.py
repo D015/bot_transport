@@ -18,18 +18,15 @@ class ChatTransportDiscord(ChatTransport):
         self._bot = discord.Client(intents=intents)
 
         @self._bot.event
-        async def on_ready():
-            loguru_logger.info(f"Ready as {self._bot.user}")
-
-        @self._bot.event
-        async def on_message(message: discord.Message):
+        async def on_message(message: discord.Message) -> None:
             if message.author == self._bot.user:
                 return
             await self._message_queue.put(
                 MessageData(
                     text=message.content,
                     chat_id=message.channel.id,
-                    transport_name=self.__class__.__name__,)
+                    transport_name=self.__class__.__name__,
+                )
             )
 
     async def send_message(self, msg: MessageData) -> None:
@@ -40,7 +37,7 @@ class ChatTransportDiscord(ChatTransport):
         except BaseException as exc:
             loguru_logger.error(f"Error while sending message: {exc}")
 
-    async def run(self):
+    async def run(self) -> None:
         loop = get_running_loop()
         loop.create_task(self._bot.start(self._token))
         await self._process_message()

@@ -8,9 +8,9 @@ from app.simple_bot.simple_business_logic_bot import SimpleBusinessLogicBot
 
 class BotsRunner:
     def __init__(
-            self,
-            business_logic_bot_class: Type[SimpleBusinessLogicBot],
-            transports_data: Iterable[TransportInitData],
+        self,
+        business_logic_bot_class: Type[SimpleBusinessLogicBot],
+        transports_data: Iterable[TransportInitData],
     ) -> None:
         self._business_logic_bot_class = business_logic_bot_class
         self._transports_data = transports_data

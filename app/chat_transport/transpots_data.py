@@ -16,12 +16,10 @@ class TransportInitData:
 transports_data = frozenset(
     {
         TransportInitData(
-            class_=ChatTransportTelegram,
-            token=APP_SETTINGS.TELEGRAM_BOT_TOKEN
+            class_=ChatTransportTelegram, token=APP_SETTINGS.TELEGRAM_BOT_TOKEN
         ),
         TransportInitData(
-            class_=ChatTransportDiscord,
-            token=APP_SETTINGS.DISCORD_BOT_TOKEN
-        )
+            class_=ChatTransportDiscord, token=APP_SETTINGS.DISCORD_BOT_TOKEN
+        ),
     }
 )

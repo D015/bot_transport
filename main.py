@@ -1,13 +1,15 @@
 from asyncio import run, sleep, CancelledError
 from app.chat_transport.transpots_data import transports_data
+from app.configs.logs_config import loguru_logger
 from app.simple_bot.bot_runner import BotsRunner
 from app.simple_bot.simple_business_logic_bot import SimpleBusinessLogicBot
 
 
-async def main():
+@loguru_logger.catch
+async def main() -> None:
     tasks_started = await BotsRunner(
-            business_logic_bot_class=SimpleBusinessLogicBot,
-            transports_data=transports_data,
+        business_logic_bot_class=SimpleBusinessLogicBot,
+        transports_data=transports_data,
     ).run_bots_with_transports()
 
     try:

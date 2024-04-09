@@ -14,7 +14,7 @@ class ChatTransportTelegram(ChatTransport):
         self._dp = Dispatcher(self._bot)
 
         @self._dp.message_handler()
-        async def message_handler(message: types.Message):
+        async def message_handler(message: types.Message) -> None:
             await self._message_queue.put(
                 MessageData(
                     text=message.text,
