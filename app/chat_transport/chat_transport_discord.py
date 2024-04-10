@@ -17,12 +17,12 @@ class ChatTransportDiscord(ChatTransport):
         intents.dm_messages = True
         self._bot = discord.Client(intents=intents)
 
-    async def _put_message_queue(self) -> None:
+    async def _listen_message(self) -> None:
         @self._bot.event
         async def on_message(message: discord.Message) -> None:
             if message.author == self._bot.user:
                 return
-            await self._message_queue.put(
+            await self._put_message_queue(
                 MessageData(
                     text=message.content,
                     chat_id=message.channel.id,
