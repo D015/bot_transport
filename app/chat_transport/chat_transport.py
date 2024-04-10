@@ -26,8 +26,14 @@ class ChatTransport(ABC):
         # Run the transport for receiving messages
         pass
 
+    @abstractmethod
+    async def _put_message_queue(self) -> None:
+        # Put a message to the queue
+        pass
+
     async def run(self) -> None:
         await self._run()
+        await self._put_message_queue()
         await self._process_message()
 
     async def _process_message(self) -> None:

@@ -13,6 +13,7 @@ class ChatTransportTelegram(ChatTransport):
         self._bot = Bot(token=self._token)
         self._dp = Dispatcher(self._bot)
 
+    async def _put_message_queue(self) -> None:
         @self._dp.message_handler()
         async def message_handler(message: types.Message) -> None:
             await self._message_queue.put(

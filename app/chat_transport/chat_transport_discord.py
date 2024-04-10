@@ -17,6 +17,7 @@ class ChatTransportDiscord(ChatTransport):
         intents.dm_messages = True
         self._bot = discord.Client(intents=intents)
 
+    async def _put_message_queue(self) -> None:
         @self._bot.event
         async def on_message(message: discord.Message) -> None:
             if message.author == self._bot.user:
