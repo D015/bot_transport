@@ -29,7 +29,6 @@ class ChatTransportTelegram(ChatTransport):
         except BaseException as exc:
             loguru_logger.error(f"Error while sending message: {exc}")
 
-    async def run(self) -> None:
+    async def _run(self) -> None:
         loop = get_running_loop()
         loop.create_task(self._dp.start_polling())
-        await self._process_message()

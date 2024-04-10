@@ -22,13 +22,13 @@ class ChatTransport(ABC):
         pass
 
     @abstractmethod
-    async def run(self) -> None:
-        # Run the transport
+    async def _run(self) -> None:
+        # Run the transport for receiving messages
         pass
 
-    async def _handle_message(self, msg: MessageData) -> None:
-        for handler in self.handlers:
-            await handler(msg=msg)
+    async def run(self) -> None:
+        await self._run()
+        await self._process_message()
 
     async def _process_message(self) -> None:
         while True:
@@ -37,3 +37,7 @@ class ChatTransport(ABC):
                 await self._handle_message(msg)
             else:
                 loguru_logger.error(f"Received message is not a MessageData")
+
+    async def _handle_message(self, msg: MessageData) -> None:
+        for handler in self.handlers:
+            await handler(msg=msg)
